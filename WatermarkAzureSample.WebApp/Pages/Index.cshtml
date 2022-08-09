@@ -1,0 +1,21 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-left">
+    <h1 class="display-4">Welcome</h1>
+    <form>
+        <div class="mb-3">
+            <label for="watermarkText" class="form-label">Watermark Text</label>
+            <input type="text" class="form-control" id="watermarkText" aria-describedby="watermarkTextHelp">
+            <div id="watermarkTextHelp" class="form-text">The text you want add to the image.</div>
+        </div>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="imageFile">
+            <label class="input-group-text" for="imageFile">Choose File</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
