@@ -6,14 +6,15 @@
 
 <div class="text-left">
     <h1 class="display-4">Welcome</h1>
-    <form>
+    <form enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="mb-3">
             <label for="watermarkText" class="form-label">Watermark Text</label>
-            <input type="text" class="form-control" id="watermarkText" aria-describedby="watermarkTextHelp">
+            <input type="text" class="form-control" id="watermarkText" aria-describedby="watermarkTextHelp" name="Text">
             <div id="watermarkTextHelp" class="form-text">The text you want add to the image.</div>
         </div>
         <div class="input-group mb-3">
-            <input type="file" class="form-control" id="imageFile">
+            <input type="file" class="form-control" id="imageFile" name="ImageFile">
             <label class="input-group-text" for="imageFile">Choose File</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

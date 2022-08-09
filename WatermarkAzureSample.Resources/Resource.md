@@ -24,6 +24,8 @@ az webapp create --name WatermarkSampleApp --resource-group WatermarkSample --pl
 
 1.从Github直接部署
 az webapp deployment source config --name WatermarkSampleApp --resource-group WatermarkSample --branch master --manual-integration --repo-url https://github.com/shuaihuadu/WatermarkSample
-
-
 2.使用VS进行部署
+
+上传文件
+使用Azure C# SDK进行文件上传
+dotnet add  package Azure.Storage.Blobs
