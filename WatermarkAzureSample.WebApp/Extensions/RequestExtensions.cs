@@ -4,7 +4,7 @@ namespace Microsoft.AspNetCore.Http
 {
     public static class RequestExtensions
     {
-        public static string GetClientIPAddress(this HttpRequest request)
+        public static string GetClientIPAddress(this HttpRequest request, bool withPort = false)
         {
             string clientIpAddress = string.Empty;
             if (!string.IsNullOrEmpty(request.Headers["X-Forwarded-For"]))
@@ -19,7 +19,16 @@ namespace Microsoft.AspNetCore.Http
                     clientIpAddress = ipAddress.ToString();
                 }
             }
-            return clientIpAddress;
+            return withPort ? clientIpAddress : RemovePort(clientIpAddress);
+        }
+
+        static string RemovePort(string ipAddressWithPort)
+        {
+            if (ipAddressWithPort.IndexOf(":") > -1)
+            {
+                return ipAddressWithPort.Substring(0, ipAddressWithPort.IndexOf(":"));
+            }
+            return ipAddressWithPort;
         }
     }
 }
