@@ -11,7 +11,8 @@ public class WatermarkAzureSampleOptions
 public class BlobOptions
 {
     public string ConnectionString { get; set; }
-    public string ContainerName { get; set; }
+    public string ImageContainerName { get; set; }
+    public string WatermarkContainerName { get; set; }
 }
 
 public class CosmosDbOptions

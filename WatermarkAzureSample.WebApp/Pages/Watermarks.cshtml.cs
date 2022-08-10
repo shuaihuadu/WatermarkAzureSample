@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using WatermarkAzureSample.WebApp.Models;
 using WatermarkAzureSample.WebApp.Services;
@@ -20,9 +23,25 @@ public class WatermarksModel : PageModel
         _cosmosDbService = cosmosDbService;
     }
 
-    public void OnGet()
+    public async Task OnGetAsync()
     {
         var queryString = string.Format("SELECT * FROM c WHERE c.requester=\"{0}\"", Request.GetClientIPAddress());
-        WatermarkItems = _cosmosDbService.GetItemsAsync(queryString).GetAwaiter().GetResult();
+        WatermarkItems = await _cosmosDbService.GetItemsAsync(queryString);
+    }
+
+    public async Task<IActionResult> OnPostDeleteAsync(string id)
+    {
+        var item = await _cosmosDbService.GetItemAsync(id);
+        if (item != null)
+        {
+            await _cosmosDbService.DeleteItemAsync(id);
+
+            var imageContainerClient = new BlobContainerClient(_options.Blob.ConnectionString, _options.Blob.ImageContainerName);
+            await imageContainerClient.DeleteBlobIfExistsAsync(item.ImageBlobName, DeleteSnapshotsOption.IncludeSnapshots);
+
+            var watermarkContainerClient = new BlobContainerClient(_options.Blob.ConnectionString, _options.Blob.WatermarkContainerName);
+            await watermarkContainerClient.DeleteBlobIfExistsAsync(item.WatermarkedBlobName, DeleteSnapshotsOption.IncludeSnapshots);
+        }
+        return RedirectToPage("Watermarks");
     }
 }

@@ -13,7 +13,6 @@ namespace WatermarkAzureSample.WebApp.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly WatermarkAzureSampleOptions _options;
         private readonly ICosmosDbService _cosmosDbService;
-
         public IndexModel(ILogger<IndexModel> logger, IOptions<WatermarkAzureSampleOptions> options, ICosmosDbService cosmosDbService)
         {
             _logger = logger;
@@ -26,7 +25,7 @@ namespace WatermarkAzureSample.WebApp.Pages
 
         }
 
-        public IActionResult OnPost(WatermarkAddViewModel watermarkAddViewModel)
+        public async Task<IActionResult> OnPost(WatermarkAddViewModel watermarkAddViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -36,26 +35,28 @@ namespace WatermarkAzureSample.WebApp.Pages
             {
                 var id = Guid.NewGuid().ToString("N");
 
-                var containerClient = new BlobContainerClient(_options.Blob.ConnectionString, _options.Blob.ContainerName);
-
                 var fileExtension = Path.GetExtension(watermarkAddViewModel.ImageFile.FileName);
+
+                var containerClient = new BlobContainerClient(_options.Blob.ConnectionString, _options.Blob.ImageContainerName);
 
                 var blobClient = containerClient.GetBlobClient(string.Format("{0}{1}", id, fileExtension.ToLower()));
 
                 using (Stream stream = watermarkAddViewModel.ImageFile.OpenReadStream())
                 {
-                    var response = blobClient.Upload(stream);
+                    var response = await blobClient.UploadAsync(stream);
                     var rawResponse = response.GetRawResponse();
                     if (!rawResponse.IsError)
                     {
                         var imageFileUri = blobClient.Uri.AbsoluteUri;
-
                         //Save watermark text and Image file uri to Azure Cosmose DB
-                        _cosmosDbService.AddItemAsync(new WatermarkItem
+                        await _cosmosDbService.AddItemAsync(new WatermarkItem
                         {
                             Id = id,
-                            ImageFileUri = imageFileUri,
+                            ImageBlobName = blobClient.Name,
+                            ImageUri = imageFileUri,
                             Text = watermarkAddViewModel.Text,
+                            WatermarkedBlobName = string.Empty,
+                            WatermarkedImageUri = string.Empty,
                             Requester = Request.GetClientIPAddress()
                         });
                         return RedirectToPage("Watermarks");

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatermarkAzureSample.WebApp", "WatermarkAzureSample.WebApp\WatermarkAzureSample.WebApp.csproj", "{8FC311FD-87F4-4E9B-A34D-29198DC962A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatermarkAzureSample.WebApp", "WatermarkAzureSample.WebApp\WatermarkAzureSample.WebApp.csproj", "{8FC311FD-87F4-4E9B-A34D-29198DC962A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatermarkAzureSample.Resources", "WatermarkAzureSample.Resources\WatermarkAzureSample.Resources.csproj", "{ABEB6F2A-8869-4497-82A4-C16504217FB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatermarkAzureSample.Resources", "WatermarkAzureSample.Resources\WatermarkAzureSample.Resources.csproj", "{ABEB6F2A-8869-4497-82A4-C16504217FB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,11 +10,17 @@ public class WatermarkItem
     [JsonProperty(PropertyName = "text")]
     public string Text { get; set; }
 
-    [JsonProperty(PropertyName = "imageFileUri")]
-    public string ImageFileUri { get; set; }
+    [JsonProperty(PropertyName = "imageBlobName")]
+    public string ImageBlobName { get; set; }
 
-    [JsonProperty(PropertyName = "watermarkedImageFileUri")]
-    public string WatermarkedImageFileUri { get; set; }
+    [JsonProperty(PropertyName = "imageUri")]
+    public string ImageUri { get; set; }
+
+    [JsonProperty(PropertyName = "watermarkedBlobName")]
+    public string WatermarkedBlobName { get; set; }
+
+    [JsonProperty(PropertyName = "watermarkedImageUri ")]
+    public string WatermarkedImageUri { get; set; }
 
     [JsonProperty(PropertyName = "requester")]
     public string Requester { get; set; }

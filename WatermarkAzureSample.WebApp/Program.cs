@@ -10,7 +10,6 @@ builder.Services.AddRazorPages();
 
 builder.Services.Configure<WatermarkAzureSampleOptions>(builder.Configuration.GetSection(WatermarkAzureSampleOptions.WatermarkAzureSample));
 
-
 builder.Services.AddSingleton<ICosmosDbService>(_ =>
 {
     var options = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<WatermarkAzureSampleOptions>>().Value;

@@ -24,6 +24,10 @@ namespace Microsoft.AspNetCore.Http
 
         static string RemovePort(string ipAddressWithPort)
         {
+            if (ipAddressWithPort == "::1")
+            {
+                return ipAddressWithPort;
+            }
             if (ipAddressWithPort.IndexOf(":") > -1)
             {
                 return ipAddressWithPort.Substring(0, ipAddressWithPort.IndexOf(":"));

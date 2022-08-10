@@ -17,7 +17,6 @@ public class CosmosDbService : ICosmosDbService
     {
         await _cosmosDbContainer.CreateItemAsync<WatermarkItem>(item, new PartitionKey(item.Id.ToString()));
     }
-
     public async Task<WatermarkItem> GetItemAsync(string id)
     {
         try
@@ -43,5 +42,10 @@ public class CosmosDbService : ICosmosDbService
             results.AddRange(response.ToList());
         }
         return results;
+    }
+
+    public async Task DeleteItemAsync(string id)
+    {
+        await _cosmosDbContainer.DeleteItemAsync<WatermarkItem>(id, new PartitionKey(id));
     }
 }
