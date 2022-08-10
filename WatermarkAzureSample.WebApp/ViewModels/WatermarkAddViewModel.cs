@@ -2,7 +2,7 @@
 
 namespace WatermarkAzureSample.WebApp.ViewModels
 {
-    public class WatermarkModel
+    public class WatermarkAddViewModel
     {
         [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]
         public string Text { get; set; }
@@ -17,9 +17,9 @@ namespace WatermarkAzureSample.WebApp.ViewModels
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var file = validationContext.ObjectInstance as FormFile;
+            var viewModel = validationContext.ObjectInstance as WatermarkAddViewModel;
 
-            if (file == null || !IsValidateImage(file.FileName))
+            if (viewModel == null || viewModel.ImageFile == null || !IsValidateImage(viewModel.ImageFile.FileName))
             {
                 return new ValidationResult("You can only upload JPG or PNG file.");
             }
@@ -28,7 +28,7 @@ namespace WatermarkAzureSample.WebApp.ViewModels
 
         public static bool IsValidateImage(string fileName)
         {
-            return fileName.EndsWith(".jpg") || fileName.EndsWith("png");
+            return fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

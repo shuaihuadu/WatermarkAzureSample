@@ -1,8 +1,33 @@
 ﻿@page
-@model PrivacyModel
+@model WatermarksModel
 @{
     ViewData["Title"] = "Watermarks";
 }
 <h1>@ViewData["Title"]</h1>
 
 <p>This page display your watermaks.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Watermark Text</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.WatermarkItems != null)
+        {
+            foreach (var watermark in Model.WatermarkItems)
+            {
+                <tr>
+                    <td><img src="@watermark.ImageFileUri" alt="@watermark.Id" width="100" />  </td>
+                    <td>@watermark.Text</td>
+                    <td> <a href="@watermark.ImageFileUri" target="_blank">View Image</a> </td>
+                    <td> <a href="@watermark.ImageFileUri" target="_blank">View Watermarked Image </a> </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

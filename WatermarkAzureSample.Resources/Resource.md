@@ -29,3 +29,11 @@ az webapp deployment source config --name WatermarkSampleApp --resource-group Wa
 上传文件
 使用Azure C# SDK进行文件上传
 dotnet add  package Azure.Storage.Blobs
+
+使用Azure Cosmos DB存储数据：
+
+dotnet add package Microsoft.Azure.Cosmos
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Cosmos
+
+我们使用EF Core进行Azure Cosmos DB的持久化操作。

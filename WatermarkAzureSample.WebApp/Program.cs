@@ -1,7 +1,25 @@
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
+using WatermarkAzureSample.WebApp;
+using WatermarkAzureSample.WebApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.Configure<WatermarkAzureSampleOptions>(builder.Configuration.GetSection(WatermarkAzureSampleOptions.WatermarkAzureSample));
+
+
+builder.Services.AddSingleton<ICosmosDbService>(_ =>
+{
+    var options = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<WatermarkAzureSampleOptions>>().Value;
+    var cosmosClient = new CosmosClient(options.CosmosDb.Account, options.CosmosDb.Key);
+    var cosmosDbService = new CosmosDbService(cosmosClient, options.CosmosDb.DatabaseName, options.CosmosDb.ContainerName);
+    var databaseResponse = cosmosClient.CreateDatabaseIfNotExistsAsync(options.CosmosDb.DatabaseName).GetAwaiter().GetResult();
+    var containerResposne = databaseResponse.Database.CreateContainerIfNotExistsAsync(options.CosmosDb.ContainerName, "/id").GetAwaiter().GetResult();
+    return cosmosDbService;
+});
 
 var app = builder.Build();
 
