@@ -4,7 +4,5 @@
 bin
 obj
 packages
-WatermarkAzureSample.WebApp/appsettings.Debug.json
 WatermarkAzureSample.WebApp/appsettings.Release.json
-WatermarkAzureSample.WebApp/appsettings.Development.json
 WatermarkAzureSample.WebApp/appsettings.Development.json
