@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace WatermarkAzureSample.WebApp.ViewModels
 {
@@ -28,7 +29,9 @@ namespace WatermarkAzureSample.WebApp.ViewModels
 
         public static bool IsValidateImage(string fileName)
         {
-            return fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase);
+            var extension = Path.GetExtension(fileName);
+            return Regex.IsMatch(extension, "png|jpg", RegexOptions.IgnoreCase);
+            //return fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

@@ -15,7 +15,7 @@ public class CosmosDbService : ICosmosDbService
 
     public async Task AddItemAsync(WatermarkItem item)
     {
-        await _cosmosDbContainer.CreateItemAsync<WatermarkItem>(item, new PartitionKey(item.Id.ToString()));
+        await _cosmosDbContainer.CreateItemAsync(item, new PartitionKey(item.Id.ToString()));
     }
     public async Task<WatermarkItem> GetItemAsync(string id)
     {
