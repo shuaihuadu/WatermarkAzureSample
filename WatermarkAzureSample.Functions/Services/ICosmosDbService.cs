@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using WatermarkAzureSample.FunctionApp.Models;
+using WatermarkAzureSample.Functions.Models;
 
-namespace WatermarkAzureSample.FunctionApp.Services;
+namespace WatermarkAzureSample.Functions.Services;
 
 public interface ICosmosDbService
 {

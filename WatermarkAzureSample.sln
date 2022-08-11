@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatermarkAzureSample.WebApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatermarkAzureSample.Resources", "WatermarkAzureSample.Resources\WatermarkAzureSample.Resources.csproj", "{ABEB6F2A-8869-4497-82A4-C16504217FB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatermarkAzureSample.FunctionApp", "WatermarkAzureSample.FunctionApp\WatermarkAzureSample.FunctionApp.csproj", "{0C692377-3B32-42E5-A1EF-099CE3768532}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatermarkAzureSample.Functions", "WatermarkAzureSample.Functions\WatermarkAzureSample.Functions.csproj", "{FB672216-A241-42A1-8B55-98C97A295383}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{ABEB6F2A-8869-4497-82A4-C16504217FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABEB6F2A-8869-4497-82A4-C16504217FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABEB6F2A-8869-4497-82A4-C16504217FB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C692377-3B32-42E5-A1EF-099CE3768532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C692377-3B32-42E5-A1EF-099CE3768532}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C692377-3B32-42E5-A1EF-099CE3768532}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C692377-3B32-42E5-A1EF-099CE3768532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB672216-A241-42A1-8B55-98C97A295383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB672216-A241-42A1-8B55-98C97A295383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB672216-A241-42A1-8B55-98C97A295383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB672216-A241-42A1-8B55-98C97A295383}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

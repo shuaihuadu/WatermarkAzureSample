@@ -12,9 +12,9 @@
             <tr>
                 <th>Image</th>
                 <th>Watermark Text</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Watermarked Image</th>
+                <th>Status</th>
+                <th>Operation</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +25,13 @@
                     <tr>
                         <td><img src="@watermark.ImageUri" alt="@watermark.Id" width="100" />  </td>
                         <td>@watermark.Text</td>
-                        <td> <button class="btn btn-sm btn-danger" asp-page-handler="delete" asp-route-id="@watermark.Id">Delete </button></td>
-                        <td> <a class="btn btn-sm btn-primary" href="@watermark.ImageUri" target="_blank">View Image</a> </td>
-                        <td> <a class="btn btn-sm btn-success" href="@watermark.WatermarkedImageUri" target="_blank">View Watermarked Image </a> </td>
+                        <td><img src="@watermark.WatermarkedImageUri" alt="@watermark.Id" width="100" />  </td>
+                        <td>@watermark.Status</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" asp-page-handler="delete" asp-route-id="@watermark.Id">Delete </button>
+                            <a class="btn btn-sm btn-primary" href="@watermark.ImageUri" target="_blank">View Image</a>
+                            <a class="btn btn-sm btn-success" href="@watermark.WatermarkedImageUri" target="_blank">View Watermarked Image </a>
+                        </td>
                     </tr>
                 }
             }

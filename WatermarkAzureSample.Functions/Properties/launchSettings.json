@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "WatermarkAzureSample.FunctionApp": {
+    "WatermarkAzureSample.Functions": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7273",
+      "commandLineArgs": "--port 7016",
       "launchBrowser": false
     }
   }

@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-namespace WatermarkAzureSample.FunctionApp.Models;
+namespace WatermarkAzureSample.Functions.Models;
 
 public class WatermarkItem
 {
+    public const string STATUS_UPLOAD = "upload";
+    public const string STATUS_OK = "ok";
+
     [JsonProperty(PropertyName = "id")]
     public string Id { get; set; }
 
@@ -21,6 +24,11 @@ public class WatermarkItem
 
     [JsonProperty(PropertyName = "watermarkedImageUri ")]
     public string WatermarkedImageUri { get; set; }
+    /// <summary>
+    /// upload, ok
+    /// </summary>
+    [JsonProperty(PropertyName = "status")]
+    public string Status { get; set; }
 
     [JsonProperty(PropertyName = "requester")]
     public string Requester { get; set; }

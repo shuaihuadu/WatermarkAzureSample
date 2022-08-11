@@ -1,9 +1,9 @@
 ﻿using Microsoft.Azure.Cosmos;
 using System.Net;
 using System.Threading.Tasks;
-using WatermarkAzureSample.FunctionApp.Models;
+using WatermarkAzureSample.Functions.Models;
 
-namespace WatermarkAzureSample.FunctionApp.Services;
+namespace WatermarkAzureSample.Functions.Services;
 
 public class CosmosDbService : ICosmosDbService
 {

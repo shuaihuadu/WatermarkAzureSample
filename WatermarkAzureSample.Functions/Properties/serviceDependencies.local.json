@@ -14,7 +14,7 @@
       "secretStore": "LocalSecretsFile",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.DocumentDB/databaseAccounts/watermarksample",
       "type": "cosmosdb.azure",
-      "connectionId": "WatermarkSampleDbConnection",
+      "connectionId": "WatermarkSampleCosmosDbConnection",
       "dynamicId": null
     }
   }

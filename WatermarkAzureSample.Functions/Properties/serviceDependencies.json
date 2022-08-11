@@ -12,7 +12,7 @@
     },
     "cosmosdb1": {
       "type": "cosmosdb",
-      "connectionId": "WatermarkSampleDbConnection",
+      "connectionId": "WatermarkSampleCosmosDbConnection",
       "dynamicId": null
     }
   }

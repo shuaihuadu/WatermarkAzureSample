@@ -57,6 +57,7 @@ namespace WatermarkAzureSample.WebApp.Pages
                             Text = watermarkAddViewModel.Text,
                             WatermarkedBlobName = string.Empty,
                             WatermarkedImageUri = string.Empty,
+                            Status = WatermarkItem.STATUS_UPLOAD,
                             Requester = Request.GetClientIPAddress()
                         });
                         return RedirectToPage("Watermarks");
