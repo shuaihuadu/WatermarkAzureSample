@@ -36,6 +36,5 @@ In this sample, integrate with the web application by using different triggers:
     * Http Trigger
     * Azure Service Bus Trigger  
 <br />
-
 * Azure DevOps / Github  
 Store source code and provide continuous integration and continuous delivery.
