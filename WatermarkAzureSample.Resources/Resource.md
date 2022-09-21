@@ -2,6 +2,9 @@
 1.1.创建资源组
 az group create --name WatermarkSample --location eastasia
 
+
+az cosmosdb create --name watermarksample --resource-group WatermarkSample
+
 1.2.创建存储账户
 az storage account create --name watermarksample --location eastasia --resource-group WatermarkSample --sku Standard_LRS --kind StorageV2 --access-tier hot
 
@@ -22,7 +25,7 @@ az webapp create --name WatermarkSampleApp --resource-group WatermarkSample --pl
 
 1.6.创建添加水印的Azure Function
 
-az functionapp create --name watermarksample --storage-account watermarksample --resource-group WatermarkSample --consumption-plan-location eastasia --functions-version 3
+az functionapp create --name watermarksamplefunctions --storage-account watermarksample --resource-group WatermarkSample --consumption-plan-location eastasia --functions-version 3
 
 
 2.部署水印应用程序
