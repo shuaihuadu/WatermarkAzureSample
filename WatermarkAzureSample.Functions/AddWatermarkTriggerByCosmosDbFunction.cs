@@ -4,17 +4,9 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SixLabors.Fonts;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WatermarkAzureSample.Functions.Models;
 using WatermarkAzureSample.Functions.Services;
@@ -61,34 +53,27 @@ namespace WatermarkAzureSample.Functions
 
                                 using (var stream = await imageBlobClient.OpenReadAsync())
                                 {
-                                    using (var image = Image.Load(stream))
+                                    var extension = Path.GetExtension(watermarkItem.ImageUri);
+                                    log.LogInformation(string.Format("Extension: {0}, Image Uri:{1}", extension, watermarkItem.ImageUri));
+                                    TextWatermarkHelper.AddWatermark(watermarkItem.Text, extension, stream, output);
+
+                                    //Upload the watermarked image to blob
+                                    var watermarkedImageBlobClient = watermarkedImageBlobContainerClient.GetBlobClient(watermarkItem.ImageBlobName);
+                                    var response = await watermarkedImageBlobClient.UploadAsync(output);
+                                    var rawResponse = response.GetRawResponse();
+                                    if (!rawResponse.IsError)
                                     {
-                                        var font = SystemFonts.CreateFont("Arial", image.Height, FontStyle.Bold);
-                                        image.Mutate(x => x.DrawText(watermarkItem.Text, font, Color.FromRgba(255, 0, 0, 100), new PointF(0, 0)));
-                                        var extension = Path.GetExtension(watermarkItem.ImageUri);
-                                        var encoder = GetEncoder(extension);
-                                        image.Save(output, encoder);
-                                        output.Position = 0;
-
-                                        //Upload the watermarked image to blob
-                                        var watermarkedImageBlobClient = watermarkedImageBlobContainerClient.GetBlobClient(watermarkItem.ImageBlobName);
-                                        var response = await watermarkedImageBlobClient.UploadAsync(output);
-                                        var rawResponse = response.GetRawResponse();
-                                        if (!rawResponse.IsError)
-                                        {
-
-                                            log.LogInformation(string.Format("Upload Successed, Id:{0},WatermarkedImageUri:{1}", watermarkItem.Id, watermarkItem.WatermarkedImageUri));
-                                            //Save watermarked image blob name and watermarked image uri to Azure Cosmose DB
-                                            watermarkItem.WatermarkedBlobName = watermarkedImageBlobClient.Name;
-                                            watermarkItem.WatermarkedImageUri = watermarkedImageBlobClient.Uri.AbsoluteUri;
-                                            watermarkItem.Status = WatermarkItem.STATUS_OK;
-                                            await UpdateWatermarkItemAsync(watermarkItem.Id, watermarkItem);
-                                            log.LogInformation(string.Format("Update Successed, Item:{0}", JsonConvert.SerializeObject(watermarkItem)));
-                                        }
-                                        else
-                                        {
-                                            log.LogError(string.Format("{0}-{1}", rawResponse.Status, rawResponse.ReasonPhrase));
-                                        }
+                                        log.LogInformation(string.Format("Upload Successed, Id:{0},WatermarkedImageUri:{1}", watermarkItem.Id, watermarkItem.WatermarkedImageUri));
+                                        //Save watermarked image blob name and watermarked image uri to Azure Cosmose DB
+                                        watermarkItem.WatermarkedBlobName = watermarkedImageBlobClient.Name;
+                                        watermarkItem.WatermarkedImageUri = watermarkedImageBlobClient.Uri.AbsoluteUri;
+                                        watermarkItem.Status = WatermarkItem.STATUS_OK;
+                                        await UpdateWatermarkItemAsync(watermarkItem.Id, watermarkItem);
+                                        log.LogInformation(string.Format("Update Successed, Item:{0}", JsonConvert.SerializeObject(watermarkItem)));
+                                    }
+                                    else
+                                    {
+                                        log.LogError(string.Format("{0}-{1}", rawResponse.Status, rawResponse.ReasonPhrase));
                                     }
                                 }
                             }
@@ -108,28 +93,6 @@ namespace WatermarkAzureSample.Functions
             var cosmosClient = new CosmosClient(WatermarkSampleCosmosDbConnection);
             var cosmosDbService = new CosmosDbService(cosmosClient, WatermarkSampleCosmosDbName, WatermarkSampleCosmosDbContainerName);
             await cosmosDbService.UpdateItemAsync(id, item);
-        }
-
-        private static IImageEncoder GetEncoder(string extension)
-        {
-            IImageEncoder encoder = null;
-            extension = extension.Replace(".", "");
-            var isSupported = Regex.IsMatch(extension, "png|jpg", RegexOptions.IgnoreCase);
-            if (isSupported)
-            {
-                switch (extension.ToLower())
-                {
-                    case "png":
-                        encoder = new PngEncoder();
-                        break;
-                    case "jpg":
-                        encoder = new JpegEncoder();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return encoder;
         }
     }
 }
