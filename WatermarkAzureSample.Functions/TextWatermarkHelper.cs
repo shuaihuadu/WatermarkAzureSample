@@ -16,7 +16,7 @@ namespace WatermarkAzureSample.Functions
         {
             using (Image image = Image.Load(imageStream))
             {
-                var font = SystemFonts.CreateFont("Arial", 200, FontStyle.Bold);
+                var font = SystemFonts.CreateFont("Arial", 240, FontStyle.Bold);
 
                 TextOptions textOptions = new(font)
                 {
@@ -24,9 +24,9 @@ namespace WatermarkAzureSample.Functions
                     WrappingLength = image.Width - 150,
                     WordBreaking = WordBreaking.Normal
                 };
-                IBrush brush = Brushes.Horizontal(Color.FromRgba(255, 0, 0, 100), Color.Blue);
+                IBrush brush = Brushes.Horizontal(Color.FromRgba(255, 0, 0, 50), Color.Blue);
                 IPen pen = Pens.Solid(Color.White, 5);
-                image.Mutate(x => x.SetDrawingTransform(Matrix3x2Extensions.CreateRotationDegrees(45)).DrawText(textOptions, text, brush, pen));
+                image.Mutate(x => x.DrawText(textOptions, text, brush, pen));
                 var encoder = GetEncoder(extension);
                 image.Save(output, encoder);
                 output.Position = 0;
