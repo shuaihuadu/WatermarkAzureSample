@@ -14,6 +14,11 @@
       "type": "cosmosdb",
       "connectionId": "WatermarkSampleCosmosDbConnection",
       "dynamicId": null
+    },
+    "storage2": {
+      "type": "storage",
+      "connectionId": "WatermarkSampleStorage",
+      "dynamicId": null
     }
   }
 }

@@ -8,51 +8,50 @@ using SixLabors.ImageSharp.Processing;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace WatermarkAzureSample.Functions
+namespace WatermarkAzureSample.Functions;
+
+public class TextWatermarkHelper
 {
-    public class TextWatermarkHelper
+    public static void AddWatermark(string text, string extension, Stream imageStream, Stream output)
     {
-        public static void AddWatermark(string text, string extension, Stream imageStream, Stream output)
+        using (Image image = Image.Load(imageStream))
         {
-            using (Image image = Image.Load(imageStream))
-            {
-                var font = SystemFonts.CreateFont("Arial", 240, FontStyle.Bold);
+            var font = SystemFonts.CreateFont("Arial", 240, FontStyle.Bold);
 
-                TextOptions textOptions = new(font)
-                {
-                    Origin = new PointF(150, 150),
-                    WrappingLength = image.Width - 150,
-                    WordBreaking = WordBreaking.Normal
-                };
-                IBrush brush = Brushes.Horizontal(Color.FromRgba(255, 0, 0, 50), Color.Blue);
-                IPen pen = Pens.Solid(Color.White, 5);
-                image.Mutate(x => x.DrawText(textOptions, text, brush, pen));
-                var encoder = GetEncoder(extension);
-                image.Save(output, encoder);
-                output.Position = 0;
+            TextOptions textOptions = new(font)
+            {
+                Origin = new PointF(150, 150),
+                WrappingLength = image.Width - 150,
+                WordBreaking = WordBreaking.Normal
+            };
+            IBrush brush = Brushes.Horizontal(Color.FromRgba(255, 0, 0, 50), Color.Blue);
+            IPen pen = Pens.Solid(Color.White, 5);
+            image.Mutate(x => x.DrawText(textOptions, text, brush, pen));
+            var encoder = GetEncoder(extension);
+            image.Save(output, encoder);
+            output.Position = 0;
+        }
+    }
+
+    private static IImageEncoder GetEncoder(string extension)
+    {
+        IImageEncoder encoder = new JpegEncoder();
+        extension = extension.Replace(".", "");
+        var isSupported = Regex.IsMatch(extension, "png|jpg", RegexOptions.IgnoreCase);
+        if (isSupported)
+        {
+            switch (extension.ToLower())
+            {
+                case "png":
+                    encoder = new PngEncoder();
+                    break;
+                case "jpg":
+                    encoder = new JpegEncoder();
+                    break;
+                default:
+                    break;
             }
         }
-
-        private static IImageEncoder GetEncoder(string extension)
-        {
-            IImageEncoder encoder = new JpegEncoder();
-            extension = extension.Replace(".", "");
-            var isSupported = Regex.IsMatch(extension, "png|jpg", RegexOptions.IgnoreCase);
-            if (isSupported)
-            {
-                switch (extension.ToLower())
-                {
-                    case "png":
-                        encoder = new PngEncoder();
-                        break;
-                    case "jpg":
-                        encoder = new JpegEncoder();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return encoder;
-        }
+        return encoder;
     }
 }

@@ -12,11 +12,15 @@ builder.Services.Configure<WatermarkAzureSampleOptions>(builder.Configuration.Ge
 
 builder.Services.AddSingleton<ICosmosDbService>(_ =>
 {
+    //加载配置文件
     var options = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<WatermarkAzureSampleOptions>>().Value;
+    //实例化CosmosClient
     var cosmosClient = new CosmosClient(options.CosmosDb.Account, options.CosmosDb.Key);
-    var cosmosDbService = new CosmosDbService(cosmosClient, options.CosmosDb.DatabaseName, options.CosmosDb.ContainerName);
+    //创建数据库和容器
     var databaseResponse = cosmosClient.CreateDatabaseIfNotExistsAsync(options.CosmosDb.DatabaseName).GetAwaiter().GetResult();
     var containerResposne = databaseResponse.Database.CreateContainerIfNotExistsAsync(options.CosmosDb.ContainerName, "/id").GetAwaiter().GetResult();
+    //实例化自定义的CosmosDbService
+    var cosmosDbService = new CosmosDbService(cosmosClient, options.CosmosDb.DatabaseName, options.CosmosDb.ContainerName);
     return cosmosDbService;
 });
 

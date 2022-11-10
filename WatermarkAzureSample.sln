@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatermarkAzureSample.Resour
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatermarkAzureSample.Functions", "WatermarkAzureSample.Functions\WatermarkAzureSample.Functions.csproj", "{FB672216-A241-42A1-8B55-98C97A295383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatermarkAzureSample.Tests", "WatermarkAzureSample.Tests\WatermarkAzureSample.Tests.csproj", "{FA2D1E24-E81A-4716-87EE-D330C57DAACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatermarkAzureSample.Tests", "WatermarkAzureSample.Tests\WatermarkAzureSample.Tests.csproj", "{FA2D1E24-E81A-4716-87EE-D330C57DAACE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatermarkAzureSample.Models", "WatermarkAzureSample.Models\WatermarkAzureSample.Models.csproj", "{4BE2C028-A1CA-4174-8FB6-F61150C21B1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{FA2D1E24-E81A-4716-87EE-D330C57DAACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA2D1E24-E81A-4716-87EE-D330C57DAACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA2D1E24-E81A-4716-87EE-D330C57DAACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BE2C028-A1CA-4174-8FB6-F61150C21B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BE2C028-A1CA-4174-8FB6-F61150C21B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BE2C028-A1CA-4174-8FB6-F61150C21B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BE2C028-A1CA-4174-8FB6-F61150C21B1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

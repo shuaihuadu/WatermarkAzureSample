@@ -14,6 +14,7 @@
                 <th>Watermark Text</th>
                 <th>Watermarked Image</th>
                 <th>Status</th>
+                <th>Process Function</th>
                 <th>Operation</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                         <td>@watermark.Text</td>
                         <td><img src="@watermark.WatermarkedImageUri" alt="@watermark.Id" width="100" />  </td>
                         <td>@watermark.Status</td>
+                        <td>@watermark.ProcessFunction</td>
                         <td>
                             <button class="btn btn-sm btn-danger" asp-page-handler="delete" asp-route-id="@watermark.Id">Delete </button>
                             <a class="btn btn-sm btn-primary" href="@watermark.ImageUri" target="_blank">View Image</a>

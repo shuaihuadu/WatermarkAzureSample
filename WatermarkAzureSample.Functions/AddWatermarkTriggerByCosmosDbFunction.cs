@@ -8,14 +8,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using WatermarkAzureSample.Functions.Models;
 using WatermarkAzureSample.Functions.Services;
+using WatermarkAzureSample.Models;
 
 namespace WatermarkAzureSample.Functions
 {
 
     public static class AddWatermarkTriggerByCosmosDbFunction
     {
+        const string FUNCTION_NAME = "AddWatermarkTriggerByCosmosDb";
+
         private static readonly string AzureWebJobsStorageConnectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
         private static readonly string ImageBlobContainerName = Environment.GetEnvironmentVariable("WatermarkImageBlobContainerName");
         private static readonly string WatermarkedImageBlobContainerName = Environment.GetEnvironmentVariable("WatermarkedImageBlobContainerName");
@@ -23,13 +25,13 @@ namespace WatermarkAzureSample.Functions
         private static readonly string WatermarkSampleCosmosDbName = Environment.GetEnvironmentVariable("WatermarkSampleCosmosDbName");
         private static readonly string WatermarkSampleCosmosDbContainerName = Environment.GetEnvironmentVariable("WatermarkSampleCosmosDbContainerName");
 
-        [FunctionName("AddWatermarkTriggerByCosmosDb")]
+        [FunctionName(FUNCTION_NAME)]
         public static async Task Run([CosmosDBTrigger(
-            databaseName: "WatermarkSample",
-            collectionName: "watermarkitems",
-            ConnectionStringSetting = "WatermarkSampleCosmosDbConnection",
-            LeaseCollectionName = "leases",
-             CreateLeaseCollectionIfNotExists =true)]IReadOnlyList<Document> input,
+databaseName: "WatermarkSample",
+collectionName: "watermarkitems",
+ConnectionStringSetting = "WatermarkSampleCosmosDbConnection",
+LeaseCollectionName = "leases",
+CreateLeaseCollectionIfNotExists =true)]IReadOnlyList<Document> input,
             ILogger log)
         {
             try
@@ -68,6 +70,7 @@ namespace WatermarkAzureSample.Functions
                                         watermarkItem.WatermarkedBlobName = watermarkedImageBlobClient.Name;
                                         watermarkItem.WatermarkedImageUri = watermarkedImageBlobClient.Uri.AbsoluteUri;
                                         watermarkItem.Status = WatermarkItem.STATUS_OK;
+                                        watermarkItem.ProcessFunction = FUNCTION_NAME;
                                         await UpdateWatermarkItemAsync(watermarkItem.Id, watermarkItem);
                                         log.LogInformation(string.Format("Update Successed, Item:{0}", JsonConvert.SerializeObject(watermarkItem)));
                                     }
@@ -84,7 +87,6 @@ namespace WatermarkAzureSample.Functions
             catch (Exception ex)
             {
                 log.LogError(ex.Message);
-                throw ex;
             }
         }
 

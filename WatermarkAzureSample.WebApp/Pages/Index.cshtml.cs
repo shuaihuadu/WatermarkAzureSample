@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
-using WatermarkAzureSample.WebApp.Models;
+using WatermarkAzureSample.Models;
 using WatermarkAzureSample.WebApp.Services;
 using WatermarkAzureSample.WebApp.ViewModels;
 

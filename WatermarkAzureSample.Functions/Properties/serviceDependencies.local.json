@@ -16,6 +16,13 @@
       "type": "cosmosdb.azure",
       "connectionId": "WatermarkSampleCosmosDbConnection",
       "dynamicId": null
+    },
+    "storage2": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/watermarksample",
+      "type": "storage.azure",
+      "connectionId": "WatermarkSampleStorage",
+      "dynamicId": null
     }
   }
 }

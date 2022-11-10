@@ -3,7 +3,7 @@ using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
-using WatermarkAzureSample.WebApp.Models;
+using WatermarkAzureSample.Models;
 using WatermarkAzureSample.WebApp.Services;
 
 namespace WatermarkAzureSample.WebApp.Pages;

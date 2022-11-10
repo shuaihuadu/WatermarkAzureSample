@@ -16,11 +16,11 @@ namespace WatermarkAzureSample.Tests
         public void Test_Add_Watermark()
         {
             string text = "sample text,sample text,sample text,sample text,sample text,sample text,sample text";
-            var path = @"C:\Users\shuai\Desktop\";
+            var path = Environment.CurrentDirectory;
 
-            using (var output = new FileStream(path + "2.jpg", FileMode.Create))
+            using (var output = new FileStream(path + "\\2.jpg", FileMode.Create))
             {
-                var stream = File.OpenRead(path + "1.jpg");
+                var stream = File.OpenRead(path + "\\1.jpg");
                 using (var image = Image.Load(stream))
                 {
                     var font = SystemFonts.CreateFont("Arial", 200, FontStyle.Bold);

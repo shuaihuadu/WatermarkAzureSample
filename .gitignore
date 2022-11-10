@@ -6,3 +6,4 @@ obj
 packages
 WatermarkAzureSample.WebApp/appsettings.Release.json
 WatermarkAzureSample.WebApp/appsettings.Development.json
+/WatermarkAzureSample.Functions/local.settings.json

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using WatermarkAzureSample.Functions.Models;
+using WatermarkAzureSample.Models;
 
 namespace WatermarkAzureSample.Functions.Services;
 

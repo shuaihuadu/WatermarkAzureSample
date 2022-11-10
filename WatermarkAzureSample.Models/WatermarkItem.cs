@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace WatermarkAzureSample.Functions.Models;
+namespace WatermarkAzureSample.Models;
 
 public class WatermarkItem
 {
@@ -22,8 +22,10 @@ public class WatermarkItem
     [JsonProperty(PropertyName = "watermarkedBlobName")]
     public string WatermarkedBlobName { get; set; }
 
-    [JsonProperty(PropertyName = "watermarkedImageUri ")]
+    [JsonProperty(PropertyName = "watermarkedImageUri")]
     public string WatermarkedImageUri { get; set; }
+    [JsonProperty(PropertyName = "processFunction")]
+    public string ProcessFunction { get; set; }
     /// <summary>
     /// upload, ok
     /// </summary>

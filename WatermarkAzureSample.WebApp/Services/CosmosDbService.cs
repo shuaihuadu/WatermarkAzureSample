@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Cosmos;
 using System.Net;
-using WatermarkAzureSample.WebApp.Models;
+using WatermarkAzureSample.Models;
 
 namespace WatermarkAzureSample.WebApp.Services;
 

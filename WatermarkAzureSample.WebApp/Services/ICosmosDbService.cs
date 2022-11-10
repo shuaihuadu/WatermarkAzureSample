@@ -1,4 +1,4 @@
-﻿using WatermarkAzureSample.WebApp.Models;
+﻿using WatermarkAzureSample.Models;
 
 namespace WatermarkAzureSample.WebApp.Services;
 
