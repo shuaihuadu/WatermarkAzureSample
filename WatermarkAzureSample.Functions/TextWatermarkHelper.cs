@@ -1,6 +1,5 @@
 ﻿using SixLabors.Fonts;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
@@ -17,19 +16,12 @@ public class TextWatermarkHelper
         using (Image image = Image.Load(imageStream))
         {
             var font = SystemFonts.CreateFont("Arial", 240, FontStyle.Bold);
-
-            TextOptions textOptions = new(font)
+            using (var image2 = image.Clone(ctx => ctx.ApplyScalingWaterMark(font, text, Color.Blue, 5, true)))
             {
-                Origin = new PointF(150, 150),
-                WrappingLength = image.Width - 150,
-                WordBreaking = WordBreaking.Normal
-            };
-            IBrush brush = Brushes.Horizontal(Color.FromRgba(255, 0, 0, 50), Color.Blue);
-            IPen pen = Pens.Solid(Color.White, 5);
-            image.Mutate(x => x.DrawText(textOptions, text, brush, pen));
-            var encoder = GetEncoder(extension);
-            image.Save(output, encoder);
-            output.Position = 0;
+                var encoder = GetEncoder(extension);
+                image2.Save(output, encoder);
+                output.Position = 0;
+            }
         }
     }
 
